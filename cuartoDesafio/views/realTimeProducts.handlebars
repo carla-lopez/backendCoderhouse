@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<body>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos en tiempo real</title>
+    <ul id="product-list">
+        {{#each products}}
+        <li>{{this.title}} - {{this.price}}</li>
+        {{/each}}
+    </ul>
+
+    <script>
+        const socket = io(); //Conecta el socket.io al servidor
+        const productList= document.getElementById('product-list');
+
+        socket.on('updateProducts',(products) => {
+            productList.innerHTML = products.map(product => `<li>${product.title} - ${product.price}</li>`).join('';)
+        })
+    </script>
+</head>
+    
+</body>
+</html>
